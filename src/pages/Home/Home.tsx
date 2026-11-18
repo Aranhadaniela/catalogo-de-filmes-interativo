@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getMovies, imagesUrl, searchMovies } from "../../service/tmdb";
 import type { Movie } from "../../types/movie.types";
 import Card from "../../components/Card/Card";
-import { Star } from "lucide-react";
+import RatingBadge from "../../components/RatingBadge/RatingBadge";
 import FavoriteButton from "../../components/FavoriteButtom/FavoriteButton";
 import SearchInput from "@/components/SearchInput/SearchInput";
 const Home = () => {
@@ -80,10 +80,7 @@ const Home = () => {
                 }
               >
                 <FavoriteButton movie={movie} />
-                <div className="absolute top-2 right-2 flex items-center gap-1 text-xs text-white">
-                  <Star className="h-3 w-3 text-amber-400" />
-                  {movie.vote_average.toFixed(1)}
-                </div>
+                <RatingBadge rating={movie.vote_average} />
               </Card>
             ))}
           </div>
@@ -124,10 +121,7 @@ const Home = () => {
                   }
                 >
                   <FavoriteButton movie={movie} />
-                  <div className="absolute top-2 right-2 flex items-center gap-1 text-xs text-white">
-                    <Star className="h-3 w-3 text-amber-400" />
-                    {movie.vote_average.toFixed(1)}
-                  </div>
+                  <RatingBadge rating={movie.vote_average} />
                 </Card>
               ))}
             </div>
