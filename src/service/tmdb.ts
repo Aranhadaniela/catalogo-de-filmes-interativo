@@ -49,6 +49,13 @@ export function getMovies(): Promise<MoviesList> {
   }
   return moviesCache;
 }
+
+export async function getRandomMovie(): Promise<Movie> {
+  const { results } = await fetchRandomMovies();
+  if (results.length === 0) throw new Error("Nenhum filme encontrado");
+  return results[Math.floor(Math.random() * results.length)];
+}
+
 export async function searchMovies(
   query: string,
   page = 1,

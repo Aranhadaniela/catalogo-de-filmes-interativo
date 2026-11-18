@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Menu from "../components/Menu/Menu";
 import Footer from "../components/Footer/Footer";
+import RandomMovie from "../components/RandomMovie/RandomMovie";
 
 const MainLayout = () => {
   return (
@@ -8,6 +9,7 @@ const MainLayout = () => {
         <Menu />
       <Outlet />
       <Footer />
+      <RandomMovie />
     </section>
   );
 };
