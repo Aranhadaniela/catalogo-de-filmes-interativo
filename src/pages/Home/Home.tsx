@@ -12,9 +12,15 @@ const Home = () => {
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [searching, setSearching] = useState(false);
-  const [searchError, setSearchError] = useState<string | null>(null);
-  const [results, setResults] = useState<Movie[]>([]);
+  const [search, setSearch] = useState<{
+    term: string;
+    results: Movie[];
+    error: string | null;
+  } | null>(null);
+  const done = search?.term === searchTerm;
+  const searching = !!searchTerm && !done;
+  const searchError = done ? search.error : null;
+  const results = done ? search.results : [];
   useEffect(() => {
     getMovies()
       .then((data) => setMovies(data.results))
@@ -24,14 +30,14 @@ const Home = () => {
   useEffect(() => {
     if (!searchTerm) return;
     let ignore = false;
-    setResults([]);
-    setSearching(true);
-    setSearchError(null);
     searchMovies(searchTerm)
-      .then((data) => setResults(data.results))
-      .catch((err: Error) => setSearchError(err.message))
-      .finally(() => {
-        if (!ignore) setSearching(false);
+      .then((data) => {
+        if (!ignore)
+          setSearch({ term: searchTerm, results: data.results, error: null });
+      })
+      .catch((err: Error) => {
+        if (!ignore)
+          setSearch({ term: searchTerm, results: [], error: err.message });
       });
     return () => {
       ignore = true;
