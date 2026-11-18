@@ -18,19 +18,29 @@ const notFoundStyle = "italic text-white/50";
 
 export default function MovieDetails() {
   const { id } = useParams<{ id: string }>();
-  const [movie, setMovie] = useState<MovieDetailsType | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<{
+    id: string;
+    movie: MovieDetailsType | null;
+    error: string | null;
+  } | null>(null);
 
   useEffect(() => {
-    ``;
     if (!id) return;
-    setLoading(true);
+    let ignore = false;
     getDetails(id)
-      .then(setMovie)
-      .catch((err: Error) => setError(err.message))
-      .finally(() => setLoading(false));
+      .then((movie) => !ignore && setResult({ id, movie, error: null }))
+      .catch(
+        (err: Error) =>
+          !ignore && setResult({ id, movie: null, error: err.message }),
+      );
+    return () => {
+      ignore = true;
+    };
   }, [id]);
+
+  const loading = !!id && result?.id !== id;
+  const movie = result && result.id === id ? result.movie : null;
+  const error = result && result.id === id ? result.error : null;
 
   if (loading) return <p>Carregando...</p>;
   if (error || !movie)
@@ -58,16 +68,18 @@ export default function MovieDetails() {
       <Back className="ml-5" />
       {(movie.backdrop_path || movie.poster_path) && (
         <div className="relative flex justify-center w-full h-150">
+            <div className="relative mt-10 w-fit">
           <BackdropImage
-            className="mt-10 rounded-lg"
+            className="block h-160 w-auto max-w-full rounded-lg"
             backdropPath={movie.backdrop_path}
             posterPath={movie.poster_path}
             alt={movie.title}
           />
-          <FavoriteButton className="top-14 right-70 left-auto" movie={movie} />
+          <FavoriteButton className="top-2 right-2 left-auto" movie={movie} />
+        </div>
         </div>
       )}
-      <div className="relative -mt-14 mb-10 flex justify-center">
+      <div className="relative mt-3 mb-10 flex justify-center">
         <div className="absolute -top-4 h-20 w-180 rounded-full bg-black/80 blur-md" />
         <h1 className="relative text-center font-extrabold text-4xl">
           {movie.title}
@@ -75,7 +87,7 @@ export default function MovieDetails() {
       </div>
       <div className="flex items-center justify-center">
         <Timer />
-        <p className={`ml-3  ${runtime ? "" : notFoundStyle}`}>
+        <p className={`ml-1 py-2 ${runtime ? "" : notFoundStyle}`}>
           {runtime ?? "Duração não informada"}
         </p>
       </div>
