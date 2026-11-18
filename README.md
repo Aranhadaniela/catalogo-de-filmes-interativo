@@ -4,11 +4,17 @@ Aplicação web em React + TypeScript para explorar filmes usando a API do [TMDB
 
 ## Screenshots
 
-> Adicione aqui os prints do app (salve em `docs/screenshots/`):
->
-> ![Home](docs/screenshots/home.png)
-> ![Detalhes do filme](docs/screenshots/detalhes.png)
-> ![Favoritos](docs/screenshots/favoritos.png)
+### Home
+
+![Home](docs/screenshots/home.png)
+
+### Detalhes do filme
+
+![Detalhes do filme](docs/screenshots/detalhes.png)
+
+### Favoritos
+
+![Favoritos](docs/screenshots/favoritos.png)
 
 ## O que o usuário pode fazer
 
