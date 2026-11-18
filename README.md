@@ -16,9 +16,14 @@ Aplicação web em React + TypeScript para explorar filmes usando a API do [TMDB
 
 ![Favoritos](docs/screenshots/favoritos.png)
 
+### Surpreenda-me (filme aleatório)
+
+![Sorteio de filme aleatório](docs/screenshots/getRandomMovie.gif)
+
 ## O que o usuário pode fazer
 
 - **Explorar** o carrossel de filmes mais bem avaliados e uma lista de filmes populares (a página é sorteada a cada visita, então sempre aparece algo novo).
+- **Ser surpreendido** com o botão flutuante "Surpreenda-me", disponível em todas as páginas: um dado gira na tela e revela um filme sorteado, com atalho para ver os detalhes ou sortear de novo.
 - **Buscar filmes por nome**, com mensagem de validação para busca vazia e atalho `Ctrl + K` (ou `Cmd + K`) para focar no campo.
 - **Ver detalhes** de um filme: sinopse, gêneros, duração, nota e imagem de fundo.
 - **Favoritar e desfavoritar** filmes com o botão de coração em qualquer card.
