@@ -3,5 +3,5 @@ export type NavigationItemProps = {
   route: string;
 };
 export type MenuProps = {
-    items?: NavigationItemProps[];
+  items?: NavigationItemProps[];
 };

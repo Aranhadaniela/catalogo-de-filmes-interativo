@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { Search } from "lucide-react";
 
 type SearchInputProps = {
-  value: string;                      
+  value: string;
   onChange: (value: string) => void;
-  onSubmit?: (term: string) => void; 
+  onSubmit?: (term: string) => void;
   placeholder?: string;
   requiredMessage?: string;
 };
@@ -30,7 +30,7 @@ export default function SearchInput({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const term = value.trim();
     if (!term) {
@@ -38,7 +38,7 @@ export default function SearchInput({
       return;
     }
     setError(null);
-    onSubmit?.(term);                 
+    onSubmit?.(term);
   };
 
   return (
@@ -65,18 +65,18 @@ export default function SearchInput({
             className="w-full bg-transparent text-sm text-white placeholder:text-white/50 outline-none"
           />
           <span className="flex shrink-0 items-center gap-1 text-[10px] text-white/60">
-            <span className="rounded border border-white/20 px-1.5 py-0.5">Ctrl</span>
+            <span className="rounded border border-white/20 px-1.5 py-0.5">
+              Ctrl
+            </span>
             <span>+</span>
-            <span className="rounded border border-white/20 px-1.5 py-0.5">K</span>
+            <span className="rounded border border-white/20 px-1.5 py-0.5">
+              K
+            </span>
           </span>
         </label>
       </div>
 
-      {error && (
-        <p  className="mt-2 text-xs text-red-400">
-          {error}
-        </p>
-      )}
+      {error && <p className="mt-2 text-xs text-red-400">{error}</p>}
     </form>
   );
 }

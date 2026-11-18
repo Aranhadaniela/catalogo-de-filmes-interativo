@@ -1,13 +1,12 @@
-import { ChevronLeft } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { ChevronLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface BackProps {
-  
-  className?: string
+  className?: string;
 }
 
-const Back = ({ className  }: BackProps) => {
-  const navigate = useNavigate()
+const Back = ({ className }: BackProps) => {
+  const navigate = useNavigate();
 
   return (
     <button
@@ -16,9 +15,8 @@ const Back = ({ className  }: BackProps) => {
       className={`inline-flex items-center gap-1 rounded-4xl border border-transparent p-2 text-sm font-medium hover:border-white ${className}`}
     >
       <ChevronLeft size={40} aria-hidden="true" />
-      
     </button>
-  )
-}
+  );
+};
 
-export default Back
+export default Back;

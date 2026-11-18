@@ -8,9 +8,12 @@ type BackdropImageProps = {
   className?: string;
 };
 
-
-const BackdropImage = ({ backdropPath, posterPath, alt, className }: BackdropImageProps) => {
-
+const BackdropImage = ({
+  backdropPath,
+  posterPath,
+  alt,
+  className,
+}: BackdropImageProps) => {
   const [failedPath, setFailedPath] = useState<string | null>(null);
 
   const backdropOk = backdropPath && failedPath !== backdropPath;

@@ -6,14 +6,13 @@ import Favorites from "./pages/Favorites/Favorites";
 import MovieDetails from "./pages/MovieDetails/MovieDetails";
 import NotFound from "./pages/NotFound/NotFound";
 
-
 function App() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
         <Route path={routes.home} element={<Home />} />
         <Route path={routes.favorites} element={<Favorites />} />
-        <Route path={routes.movieDetails} element={<MovieDetails/>}/>
+        <Route path={routes.movieDetails} element={<MovieDetails />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

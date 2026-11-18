@@ -1,16 +1,16 @@
 import MovieCarrousel from "../../components/MovieCarrosel/MovieCarrosel";
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 import { getMovies, imagesUrl, searchMovies } from "../../service/tmdb";
-import type { Movie } from '../../types/movie.types'
+import type { Movie } from "../../types/movie.types";
 import Card from "../../components/Card/Card";
-import { Star } from 'lucide-react';
-import FavoriteButton from '../../components/FavoriteButtom/FavoriteButton'
+import { Star } from "lucide-react";
+import FavoriteButton from "../../components/FavoriteButtom/FavoriteButton";
 import SearchInput from "@/components/SearchInput/SearchInput";
 const Home = () => {
-  const [movies, setMovies] = useState<Movie[]>([])
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null)
-  const [query, setQuery] = useState("")
+  const [error, setError] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [searching, setSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
@@ -19,22 +19,25 @@ const Home = () => {
     getMovies()
       .then((data) => setMovies(data.results))
       .catch((err: Error) => setError(err.message))
-      .finally(() => setLoading(false))
-  }, [])
+      .finally(() => setLoading(false));
+  }, []);
   useEffect(() => {
     if (!searchTerm) return;
-    let ignore = false
+    let ignore = false;
     setResults([]);
     setSearching(true);
     setSearchError(null);
     searchMovies(searchTerm)
       .then((data) => setResults(data.results))
       .catch((err: Error) => setSearchError(err.message))
-      .finally(() => { if (!ignore) setSearching(false) });
-    return () => { ignore = true };
+      .finally(() => {
+        if (!ignore) setSearching(false);
+      });
+    return () => {
+      ignore = true;
+    };
   }, [searchTerm]);
   return (
-
     <div>
       <div className="mt-6 flex justify-center px-4">
         <SearchInput
@@ -48,7 +51,9 @@ const Home = () => {
       </div>
       {searchTerm ? (
         <div className="mx-auto w-full max-w-6xl px-4">
-          <h1 className="text-2xl font-extrabold mt-8">Resultados para "{searchTerm}"</h1>
+          <h1 className="text-2xl font-extrabold mt-8">
+            Resultados para "{searchTerm}"
+          </h1>
 
           {searching && <p className="mt-6">Buscando...</p>}
           {searchError && <p className="mt-6">{searchError}</p>}
@@ -62,7 +67,11 @@ const Home = () => {
                 key={movie.id}
                 id={movie.id}
                 name={movie.title}
-                posterPath={movie.poster_path ? `${imagesUrl}${movie.poster_path}` : undefined}
+                posterPath={
+                  movie.poster_path
+                    ? `${imagesUrl}${movie.poster_path}`
+                    : undefined
+                }
               >
                 <FavoriteButton movie={movie} />
                 <div className="absolute top-2 right-2 flex items-center gap-1 text-xs text-white">
@@ -73,7 +82,9 @@ const Home = () => {
             ))}
           </div>
           {!searching && results.length > 0 && (
-            <p className="mt-10 text-center text-neutral-400">Fim da página :)</p>
+            <p className="mt-10 text-center text-neutral-400">
+              Fim da página :)
+            </p>
           )}
         </div>
       ) : (
@@ -87,7 +98,9 @@ const Home = () => {
             <MovieCarrousel />
           </div>
           <div className="mx-auto w-full max-w-6xl px-4">
-            <h1 className="text-2xl font-extrabold mt-10 text-left">Populares</h1>
+            <h1 className="text-2xl font-extrabold mt-10 text-left">
+              Populares
+            </h1>
 
             {loading && <p>Carregando filmes...</p>}
             {error && <p>{error}</p>}
@@ -98,8 +111,11 @@ const Home = () => {
                   key={movie.id}
                   id={movie.id}
                   name={movie.title}
-                  posterPath={movie.poster_path ? `${imagesUrl}${movie.poster_path}` : undefined}
-
+                  posterPath={
+                    movie.poster_path
+                      ? `${imagesUrl}${movie.poster_path}`
+                      : undefined
+                  }
                 >
                   <FavoriteButton movie={movie} />
                   <div className="absolute top-2 right-2 flex items-center gap-1 text-xs text-white">
@@ -110,7 +126,9 @@ const Home = () => {
               ))}
             </div>
             {!loading && movies.length > 0 && (
-              <p className="mt-10 text-center text-neutral-400">Fim da página :)</p>
+              <p className="mt-10 text-center text-neutral-400">
+                Fim da página :)
+              </p>
             )}
           </div>
         </>

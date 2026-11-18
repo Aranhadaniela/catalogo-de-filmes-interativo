@@ -2,7 +2,11 @@ import { NavLink } from "react-router-dom";
 import type { NavigationItemProps } from "./menu.types";
 
 const MenuItem = ({ label, route }: NavigationItemProps) => (
-  <NavLink to={route} end className="flex flex-col items-center px-2 transition-all duration-200 ease-in-out">
+  <NavLink
+    to={route}
+    end
+    className="flex flex-col items-center px-2 transition-all duration-200 ease-in-out"
+  >
     {({ isActive }) => (
       <>
         <div

@@ -6,16 +6,20 @@ import SearchInput from "@/components/SearchInput/SearchInput";
 import { useState } from "react";
 const Favorites = () => {
   const { favorites } = useFavorites();
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState("");
   const filtered = favorites.filter((m) =>
-    m.title.toLowerCase().includes(search.trim().toLowerCase())
+    m.title.toLowerCase().includes(search.trim().toLowerCase()),
   );
   return (
     <div className="mx-auto w-full max-w-6xl px-4">
       <h1 className="text-2xl font-extrabold mt-8">Favoritos</h1>
       <div className="mt-6 flex justify-center">
-        <SearchInput value={search} onChange={setSearch} placeholder="Filtrar favoritos..."
-          requiredMessage="Digite o nome de um filme para filtrar." />
+        <SearchInput
+          value={search}
+          onChange={setSearch}
+          placeholder="Filtrar favoritos..."
+          requiredMessage="Digite o nome de um filme para filtrar."
+        />
       </div>
       {favorites.length === 0 && (
         <p className="mt-6">Você ainda não favoritou nenhum filme.</p>
@@ -30,7 +34,9 @@ const Favorites = () => {
             key={movie.id}
             id={movie.id}
             name={movie.title}
-            posterPath={movie.poster_path ? `${imagesUrl}${movie.poster_path}` : undefined}
+            posterPath={
+              movie.poster_path ? `${imagesUrl}${movie.poster_path}` : undefined
+            }
           >
             <FavoriteButton movie={movie} />
           </Card>

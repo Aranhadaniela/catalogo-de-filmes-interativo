@@ -9,9 +9,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Star } from 'lucide-react';
-import { Link, generatePath } from 'react-router-dom'
-import { routes } from '../../constants/routes';
+import { Star } from "lucide-react";
+import { Link, generatePath } from "react-router-dom";
+import { routes } from "../../constants/routes";
 export default function MovieCarousel() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
@@ -32,7 +32,10 @@ export default function MovieCarousel() {
       <CarouselContent>
         {movies.map((movie) => (
           <CarouselItem key={movie.id} className="basis-full">
-            <Link to={generatePath(routes.movieDetails, { id: String(movie.id) })} className="group relative overflow-hidden rounded-lg">
+            <Link
+              to={generatePath(routes.movieDetails, { id: String(movie.id) })}
+              className="group relative overflow-hidden rounded-lg"
+            >
               <BackdropImage
                 backdropPath={movie.backdrop_path}
                 posterPath={movie.poster_path}
@@ -46,8 +49,11 @@ export default function MovieCarousel() {
                 {movie.title}
               </h2>
               <div className="absolute bottom-[17.5px] right-14 text-amber-400">
-                <Star /></div>
-              <p className="absolute bottom-4 right-6">{movie.vote_average.toFixed(1)}</p>
+                <Star />
+              </div>
+              <p className="absolute bottom-4 right-6">
+                {movie.vote_average.toFixed(1)}
+              </p>
             </Link>
           </CarouselItem>
         ))}

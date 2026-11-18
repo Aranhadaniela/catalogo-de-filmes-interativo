@@ -10,7 +10,9 @@ const NotFound = () => {
       <NotFoundAnimation path={pathname} />
       <div>
         <h1 className="text-2xl font-extrabold">Página não encontrada</h1>
-        <p className="mt-2 font-light">O endereço que você tentou acessar não existe.</p>
+        <p className="mt-2 font-light">
+          O endereço que você tentou acessar não existe.
+        </p>
       </div>
       <Link
         to={routes.home}

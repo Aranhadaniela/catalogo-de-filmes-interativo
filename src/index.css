@@ -1,15 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-app-primary: #08032E;
+  --color-app-primary: #08032e;
   --color-app-secondary: #100847;
   --color-app-terciary: #191061;
-  --color-app-quartenary: #241A7C;
-  --font-lato: 'Lato', sans-serif, bold;
+  --color-app-quartenary: #241a7c;
+  --font-lato: "Lato", sans-serif, bold;
 }
 
 @layer base {
-
   html,
   body {
     background-color: #030018;

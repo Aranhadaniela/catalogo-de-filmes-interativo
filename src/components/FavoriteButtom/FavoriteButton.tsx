@@ -2,7 +2,13 @@ import { Heart } from "lucide-react";
 import { useFavorites } from "../../context/MyFavContexts";
 import type { Movie } from "../../types/movie.types";
 
-export default function FavoriteButton({ movie, className = "" }: { movie: Movie; className?: string }) {
+export default function FavoriteButton({
+  movie,
+  className = "",
+}: {
+  movie: Movie;
+  className?: string;
+}) {
   const { isFavorite, changeFavorite } = useFavorites();
   const active = isFavorite(movie.id);
 
@@ -10,7 +16,7 @@ export default function FavoriteButton({ movie, className = "" }: { movie: Movie
     <button
       type="button"
       onClick={(e) => {
-        e.preventDefault();   
+        e.preventDefault();
         e.stopPropagation();
         changeFavorite(movie);
       }}

@@ -6,7 +6,7 @@ const MainLayout = () => {
   return (
     <section id="center" className="pb-24">
       <div className="items-center justify-items-center ">
-      <Menu />
+        <Menu />
       </div>
       <Outlet />
       <Footer />
