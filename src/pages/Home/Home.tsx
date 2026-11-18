@@ -92,12 +92,12 @@ const Home = () => {
         </div>
       ) : (
         <>
-          <div className="mx-auto w-full max-w-6xl px-4">
-            <h1 className="text-2xl font-extrabold mt-8 ml-30 text-left">
+          <div className="mx-auto w-full max-w-4xl px-4">
+            <h1 className="text-2xl font-extrabold mt-8 text-left">
               Mais avaliados
             </h1>
           </div>
-          <div className="w-full mt-7 flex justify-center">
+          <div className="w-full mt-7 flex justify-center px-4">
             <MovieCarrousel />
           </div>
           <div className="mx-auto w-full max-w-6xl px-4">

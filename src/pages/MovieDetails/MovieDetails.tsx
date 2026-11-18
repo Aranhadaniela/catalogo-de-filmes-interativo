@@ -64,37 +64,39 @@ export default function MovieDetails() {
     const hasRating = movie.vote_count > 0;
 
     return (
-        <div>
-            <Back className="ml-5" />
+        <div className="flex min-h-screen flex-col justify-center pb-24">
+            {!(movie.backdrop_path || movie.poster_path) && (
+                <Back className="ml-5" />
+            )}
             {(movie.backdrop_path || movie.poster_path) && (
-                <div className="relative flex justify-center w-full h-150">
-                    <div className="relative mt-10 w-fit">
+                <div className="flex justify-center w-full px-4">
+                    <div className="relative mt-6 w-full max-w-7xl overflow-hidden rounded-lg">
+                        <Back className="absolute top-1 left-2 z-20 bg-black/50 p-1" />
                         <BackdropImage
-                            className="block h-160 w-auto max-w-full rounded-lg"
+                            className="block w-full aspect-video object-cover"
                             backdropPath={movie.backdrop_path}
                             posterPath={movie.poster_path}
                             alt={movie.title}
                         />
+                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-black/90 via-black/50 to-transparent" />
+                        <h1 className="absolute inset-x-0 bottom-4 px-4 text-center font-extrabold text-4xl drop-shadow-lg">
+                            {movie.title}
+                        </h1>
                         <FavoriteButton className="top-2 right-2 left-auto" movie={movie} />
                     </div>
                 </div>
             )}
-            <div className="relative mt-3 mb-10 flex justify-center">
-                <div className="absolute top-1 h-20 w- rounded-full bg-black/60 blur-md" />
-                <h1 className="relative text-center font-extrabold text-4xl">
-                    {movie.title}
-                </h1>
-            </div>
-            <div className="flex items-center justify-center">
+
+            <div className="flex items-center justify-center mt-6 text-xl">
                 <Timer />
                 <p className={`ml-1 py-2 ${runtime ? "" : notFoundStyle}`}>
                     {runtime ?? "Duração não informada"}
                 </p>
             </div>
-            <p className={`text-center ${genres ? "" : notFoundStyle}`}>
+            <p className={`text-center text-lg ${genres ? "" : notFoundStyle}`}>
                 {genres ?? "Gêneros não informados"}
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-6 mt-4">
+            <div className="flex flex-wrap items-center justify-center gap-8 mt-6 text-lg">
                 <div className="flex items-center gap-2">
                     <Star className="h-5 w-5" />
                     <span className={hasRating ? "" : notFoundStyle}>
@@ -121,8 +123,8 @@ export default function MovieDetails() {
                 </div>
             </div>
             {movie.overview?.trim() && (
-                <div className="flex justify-center text-center px-20 py-8">
-                    <p className="text-center text-2xl font-light ">{movie.overview}</p>
+                <div className="mx-auto w-full max-w-4xl px-6 py-10">
+                    <p className="text-center text-2xl font-light">{movie.overview}</p>
                 </div>
             )}
         </div>

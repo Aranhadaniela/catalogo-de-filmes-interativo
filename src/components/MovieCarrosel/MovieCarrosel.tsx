@@ -45,7 +45,7 @@ export default function MovieCarousel() {
               <div className="absolute inset-x-0 -bottom-1 h-35 bg-linear-to-t from-app-terciary to-transparent" />
               <div className="pointer-events-none absolute inset-0 transition-shadow duration-500 group-hover:inset-shadow-[0_0_80px_rgba(0,0,0,0.7)]" />
 
-              <h2 className="absolute bottom-4 left-4 text-2xl font-bold text-white ">
+              <h2 className="absolute bottom-4 left-4 max-w-[65%] truncate text-lg font-bold text-white sm:text-2xl">
                 {movie.title}
               </h2>
               <div className="absolute bottom-[17.5px] right-14 text-amber-400">
@@ -58,8 +58,8 @@ export default function MovieCarousel() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious className="top-1/2 left-2 lg:-left-12" />
+      <CarouselNext className="top-1/2 right-2 lg:-right-12" />
     </Carousel>
   );
 }
