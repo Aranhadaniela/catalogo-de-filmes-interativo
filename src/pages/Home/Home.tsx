@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getMovies, imagesUrl, searchMovies } from "../../service/tmdb";
 import type { Movie } from "../../types/movie.types";
 import Card from "../../components/Card/Card";
-import { Star } from "lucide-react";
+import RatingBadge from "../../components/RatingBadge/RatingBadge";
 import FavoriteButton from "../../components/FavoriteButtom/FavoriteButton";
 import SearchInput from "@/components/SearchInput/SearchInput";
 const Home = () => {
@@ -12,9 +12,15 @@ const Home = () => {
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [searching, setSearching] = useState(false);
-  const [searchError, setSearchError] = useState<string | null>(null);
-  const [results, setResults] = useState<Movie[]>([]);
+  const [search, setSearch] = useState<{
+    term: string;
+    results: Movie[];
+    error: string | null;
+  } | null>(null);
+  const done = search?.term === searchTerm;
+  const searching = !!searchTerm && !done;
+  const searchError = done ? search.error : null;
+  const results = done ? search.results : [];
   useEffect(() => {
     getMovies()
       .then((data) => setMovies(data.results))
@@ -24,14 +30,14 @@ const Home = () => {
   useEffect(() => {
     if (!searchTerm) return;
     let ignore = false;
-    setResults([]);
-    setSearching(true);
-    setSearchError(null);
     searchMovies(searchTerm)
-      .then((data) => setResults(data.results))
-      .catch((err: Error) => setSearchError(err.message))
-      .finally(() => {
-        if (!ignore) setSearching(false);
+      .then((data) => {
+        if (!ignore)
+          setSearch({ term: searchTerm, results: data.results, error: null });
+      })
+      .catch((err: Error) => {
+        if (!ignore)
+          setSearch({ term: searchTerm, results: [], error: err.message });
       });
     return () => {
       ignore = true;
@@ -74,10 +80,7 @@ const Home = () => {
                 }
               >
                 <FavoriteButton movie={movie} />
-                <div className="absolute top-2 right-2 flex items-center gap-1 text-xs text-white">
-                  <Star className="h-3 w-3 text-amber-400" />
-                  {movie.vote_average.toFixed(1)}
-                </div>
+                <RatingBadge rating={movie.vote_average} />
               </Card>
             ))}
           </div>
@@ -89,12 +92,12 @@ const Home = () => {
         </div>
       ) : (
         <>
-          <div className="mx-auto w-full max-w-6xl px-4">
-            <h1 className="text-2xl font-extrabold mt-8 ml-30 text-left">
+          <div className="mx-auto w-full max-w-4xl px-4">
+            <h1 className="text-2xl font-extrabold mt-8 text-left">
               Mais avaliados
             </h1>
           </div>
-          <div className="w-full mt-7 flex justify-center">
+          <div className="w-full mt-7 flex justify-center px-4">
             <MovieCarrousel />
           </div>
           <div className="mx-auto w-full max-w-6xl px-4">
@@ -118,10 +121,7 @@ const Home = () => {
                   }
                 >
                   <FavoriteButton movie={movie} />
-                  <div className="absolute top-2 right-2 flex items-center gap-1 text-xs text-white">
-                    <Star className="h-3 w-3 text-amber-400" />
-                    {movie.vote_average.toFixed(1)}
-                  </div>
+                  <RatingBadge rating={movie.vote_average} />
                 </Card>
               ))}
             </div>

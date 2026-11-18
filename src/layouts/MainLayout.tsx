@@ -5,9 +5,7 @@ import Footer from "../components/Footer/Footer";
 const MainLayout = () => {
   return (
     <section id="center" className="pb-24">
-      <div className="items-center justify-items-center ">
         <Menu />
-      </div>
       <Outlet />
       <Footer />
     </section>
