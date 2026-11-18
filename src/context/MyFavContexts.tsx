@@ -42,6 +42,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     </FavoritesContext.Provider>
   );
 }
+// eslint-disable-next-line react-refresh/only-export-components
 export function useFavorites() {
   const cntxt = useContext(FavoritesContext);
   if (!cntxt)
