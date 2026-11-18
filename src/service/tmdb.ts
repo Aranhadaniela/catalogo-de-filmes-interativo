@@ -23,7 +23,9 @@ export async function getDetails(id: string): Promise<MovieDetails> {
   if (!res.ok) throw new Error("Falha ao buscar detalhes do filme");
   return res.json();
 }
-export async function getMovies(): Promise<MoviesList> {
+let moviesCache: Promise<MoviesList> | null = null;
+
+async function fetchRandomMovies(): Promise<MoviesList> {
   const page = Math.floor(Math.random() * 500) + 1;
   const res = await fetch(
     `${baseUrl}/movie/popular?language=pt-BR&page=${page}`,
@@ -35,6 +37,17 @@ export async function getMovies(): Promise<MoviesList> {
   );
   if (!res.ok) throw new Error("Falha ao buscar filmes");
   return res.json();
+}
+
+// Mantém a mesma lista aleatória enquanto a aba estiver aberta (some no F5).
+export function getMovies(): Promise<MoviesList> {
+  if (!moviesCache) {
+    moviesCache = fetchRandomMovies().catch((err) => {
+      moviesCache = null;
+      throw err;
+    });
+  }
+  return moviesCache;
 }
 export async function searchMovies(
   query: string,
